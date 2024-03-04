@@ -14,14 +14,26 @@ class SplashScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AnimatedArtfolioText(),
-            AnimatedStackTransition(),
+            Expanded(
+              flex: 5,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: AnimatedArtfolioText(),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: AnimatedStackTransition(),
+              ),
+            ),
           ],
         ),
       ),
       backgroundColor: const Color(0xFF040207),
+      duration: 5000,
       nextScreen: const GetStarted(),
-      duration: 3000,
     );
   }
 }
@@ -35,8 +47,10 @@ class AnimatedStackTransition extends StatefulWidget {
 }
 
 class _AnimatedStackTransitionState extends State<AnimatedStackTransition>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _controller;
+  late AnimationController _sizeController;
+  late Animation<double> _sizeAnimation;
 
   @override
   void initState() {
@@ -46,20 +60,32 @@ class _AnimatedStackTransitionState extends State<AnimatedStackTransition>
       duration: const Duration(seconds: 1),
     );
 
-    // Forward animation
+    _sizeController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    );
+
+    _sizeAnimation = Tween<double>(
+      begin: 1.0,
+      end: 50.0,
+    ).animate(_sizeController);
+
     Future.delayed(const Duration(milliseconds: 500), () {
       _controller.forward();
     });
 
-    // Reverse animation
     Future.delayed(const Duration(milliseconds: 3000), () {
       _controller.reverse();
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        _sizeController.forward();
+      });
     });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _sizeController.dispose();
     super.dispose();
   }
 
@@ -70,26 +96,34 @@ class _AnimatedStackTransitionState extends State<AnimatedStackTransition>
       builder: (context, child) {
         return SlideTransition(
           position: Tween<Offset>(
-            begin: Offset.zero,
-            end: const Offset(0.3, 0.0),
+            begin: const Offset(-0.5, 0.0),
+            end: const Offset(0.2, 0.0),
           ).animate(CurvedAnimation(
             parent: _controller,
-            curve: Curves.easeInOut,
+            curve: Curves.ease,
           )),
           child: Stack(
             alignment: Alignment.center,
             children: [
-
-              Container(
-                width: 55,
-                height: 55,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFFF5307),
-                  shape: CircleBorder(),
-                ),
+              AnimatedBuilder(
+                animation: _sizeController,
+                builder: (context, child) {
+                  return Transform.scale(
+                    scale: _sizeAnimation.value,
+                    child: Container(
+                      width: 55,
+                      height: 55,
+                      decoration: const ShapeDecoration(
+                        color: Color(0xFFFF5307),
+                        shape: CircleBorder(),
+                      ),
+                    ),
+                  );
+                },
               ),
               Positioned(
-                child: Image.asset('assets/images/white.png'),
+                child: Image.asset('assets/images/white.png',
+                    width: 31, height: 27),
               ),
             ],
           ),
@@ -118,8 +152,12 @@ class _AnimatedArtfolioTextState extends State<AnimatedArtfolioText>
       duration: const Duration(seconds: 1),
     );
 
-    Future.delayed(const Duration(milliseconds: 5), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       _controller.forward();
+    });
+
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      _controller.reverse();
     });
   }
 
@@ -137,7 +175,7 @@ class _AnimatedArtfolioTextState extends State<AnimatedArtfolioText>
         'Artfolio',
         style: TextStyle(
           color: Colors.white,
-          fontSize: 24,
+          fontSize: 32,
           fontWeight: FontWeight.bold,
           fontFamily: 'Inter',
         ),
