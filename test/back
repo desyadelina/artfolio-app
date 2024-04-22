@@ -1,0 +1,468 @@
+//ver2
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0XFFFF5307), // ganti warna bg
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
+                child: Text(
+                  'Build a portfolio that reflects your style',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Color(0xFFDEDEDE),
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ),
+              Image.network(
+                'assets/images/covergetstarted.png', // Ganti URL dengan URL gambar Anda
+                width: MediaQuery.of(context).size.width, // Sesuaikan lebar gambar sesuai kebutuhan
+                height: MediaQuery.of(context).size.height, // Sesuaikan tinggi gambar sesuai kebutuhan
+                fit: BoxFit.fitWidth, // Mengatur cara gambar menyesuaikan diri dengan ukuran yang tersedia
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//ver3
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFF5307),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/covergetstarted.png'),
+              fit: BoxFit.cover,
+              alignment: Alignment.bottomCenter,
+            ),
+          ),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
+                child: Text(
+                  'Build a portfolio that reflects your style',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Color(0xFFDEDEDE),
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ),
+              // You can add other widgets here if needed
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+//4
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor:const Color(0xFFFF5307),
+      body: Stack(
+        children: [
+          // Gambar
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/covergetstarted.png',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // Teks
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(30, 80, 30, 30),
+                child: Text(
+                  'Build a portfolio that reflects your style',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Color(0xFFDEDEDE),
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+//final no icon
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+Widget build(BuildContext context) {
+  double screenHeight = MediaQuery.of(context).size.height;
+  double screenWidth = MediaQuery.of(context).size.width;
+  
+  return Scaffold(
+    body: Container(
+      width: screenWidth,
+      height: screenHeight,
+      clipBehavior: Clip.antiAlias,
+      decoration: const BoxDecoration(color: Color(0xFFFF5307)),
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: MediaQuery.of(context).size.height * 0.20,
+            child: SizedBox(
+              width: screenWidth,
+              height: screenHeight,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/covergetstarted.png"),
+                    fit: BoxFit.fill,
+                  )
+                ),
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
+            child: Stack(
+              children: [
+                Positioned(
+                  child: SizedBox(
+                    width: screenWidth,
+                    height: screenHeight,
+                    child: const Text(
+                      "Build a portfolio that reflects your style",
+                      style: TextStyle(
+                        color:Color(0xFFDEDEDE),
+                        fontSize: 32,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+}
+//teticonfail
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFF5307),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                "Build a portfolio that reflects your style",
+                style: TextStyle(
+                  color: Color(0xFFDEDEDE),
+                  fontSize: 32,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Inter',
+                ),
+              ),
+            ),
+            SizedBox(width: 10),
+            CircleAvatar(
+              backgroundColor: Colors.white, // Warna latar belakang lingkaran
+              radius: 20.0, // Radius lingkaran
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.black, // Warna ikon
+                size: 24.0, // Ukuran ikon
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//socloseicon
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFF5307),
+      body: Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Build a portfolio that reflects your style ",
+                      style: TextStyle(
+                        color: Color(0xFFDEDEDE),
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    WidgetSpan(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 36.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//failedimg
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFF5307),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
+        child: Column(
+          children: [
+            Expanded(
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Build a portfolio that reflects your style ",
+                      style: TextStyle(
+                        color: Color(0xFFDEDEDE),
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                    WidgetSpan(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 36.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20), // Spacer antara teks dan gambar
+            Image.asset(
+              'assets/images/covergetstarted.png', // Sesuaikan dengan path gambar Anda
+              fit: BoxFit.fill,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+//failed
+import 'package:flutter/material.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        clipBehavior: Clip.antiAlias,
+        decoration: const BoxDecoration(color: Color(0xFFFF5307)),
+        child: Stack(
+          children: [
+            Positioned(
+              left: 0,
+              top: MediaQuery.of(context).size.height * 0.20,
+              child: SizedBox(
+                width: screenWidth,
+                height: screenHeight,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/covergetstarted.png"),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(30, 80, 30, 30),
+              child: Stack(
+                children: [
+                  Positioned(
+                    child: SizedBox(
+                      width: screenWidth,
+                      height: screenHeight,
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "Build a portfolio that reflects your style ",
+                              style: TextStyle(
+                                color: Color(0xFFDEDEDE),
+                                fontSize: 32,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                            WidgetSpan(
+                              child: Icon(
+                                Icons.arrow_forward,
+                                color: Color(0xFFDEDEDE),
+                                size: 36.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+//finalimgabsr
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class GetStarted extends StatelessWidget {
+  const GetStarted({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0XFFFF5307),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 80, 25, 25),
+            child: Row(
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: "Build a portfolio that reflects your style ",
+                      style: const TextStyle(
+                        color: Color(0xFFDEDEDE),
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                      children: [
+                        WidgetSpan(
+                          baseline: TextBaseline.alphabetic,
+                          alignment: PlaceholderAlignment.middle,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/nextScreen');
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.arrowRightLong,
+                              color: Color(0xFFDEDEDE),
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/covergetstarted.png'), // Replace with your image path
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
