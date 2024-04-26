@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:artfolio_app/auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,7 +14,7 @@ class GetStarted extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(25, 80, 25, 25),
+            padding: const EdgeInsets.fromLTRB(45, 152, 25, 32.04),
             child: Row(
               children: [
                 Expanded(
@@ -30,7 +33,11 @@ class GetStarted extends StatelessWidget {
                           alignment: PlaceholderAlignment.middle,
                           child: IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/nextScreen');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInPage()),
+                              );
                             },
                             icon: const Icon(
                               FontAwesomeIcons.arrowRightLong,
@@ -50,13 +57,21 @@ class GetStarted extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/covergetstarted.png'), // Replace with your image path
+                  image: AssetImage('assets/images/bg-getstarted.png'),
                   fit: BoxFit.fill,
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void main() {
+    runApp(
+      const MaterialApp(
+        home: GetStarted(),
       ),
     );
   }
