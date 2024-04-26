@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:artfolio_app/auth/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:artfolio_app/screens/getStarted.dart';
@@ -33,7 +34,7 @@ class SplashScreen extends StatelessWidget {
       ),
       backgroundColor: const Color(0xFF040207),
       duration: 5000,
-      nextScreen: const GetStarted(),
+      nextScreen: const SignInPage(),
     );
   }
 }
@@ -122,7 +123,7 @@ class _AnimatedStackTransitionState extends State<AnimatedStackTransition>
                 },
               ),
               Positioned(
-                child: Image.asset('assets/images/white.png',
+                child: Image.asset('assets/images/logo-white.png',
                     width: 31, height: 27),
               ),
             ],

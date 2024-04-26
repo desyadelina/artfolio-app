@@ -1,66 +1,63 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:artfolio_app/components/button.dart';
+import 'package:artfolio_app/components/input.dart';
+import 'package:artfolio_app/components/topbar.dart';
+import 'package:artfolio_app/pages/discover.dart';
 import 'package:flutter/material.dart';
 
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
-class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 375,
-          height: 667,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Color(0xFF040207)),
-          child: Stack(
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Column(
             children: [
-              Positioned(
-                left: 0,
-                top: -48,
-                child: Container(
-                  width: 375,
-                  height: 387,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage("https://via.placeholder.com/375x387"),
-                      fit: BoxFit.contain,
+              Container(
+                width: screenSize.width,
+                height: screenSize.height,
+                clipBehavior: Clip.antiAlias,
+                decoration: const BoxDecoration(color: Color(0xFF040207)),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      child: Container(
+                        width: screenSize.width,
+                        height: screenSize.height * 0.61,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/bg-signin.png"),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 41,
-                top: 354,
-                child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 31,
-                top: 564,
-                child: Container(
-                  width: 314,
-                  height: 40,
-                  padding: const EdgeInsets.all(10),
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFFF5307),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
+                    Positioned(
+                      left: screenSize.width * 0.10,
+                      top: screenSize.height * 0.55,
+                      child: const Text(
                         'Sign In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: screenSize.width * 0.10,
+                      top: screenSize.height * 0.60,
+                      child: const Text(
+                        'Please sign in to continue',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -69,207 +66,73 @@ class SignInScreen extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 31,
-                top: 491,
-                child: Container(
-                  width: 314,
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF29252E),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 15,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(),
-                        child: Stack(children: [
-                        
-                        ]),
+                    Positioned(
+                      top: screenSize.height * 0.66,
+                      left: screenSize.width * 0.10,
+                      child: CustomInput(
+                        placeholder: 'E-mail address',
+                        icon: Icons.mail_outline_rounded,
+                        controller: TextEditingController(),
+                        width: screenSize.width * 0.84,
+                        height: screenSize.height * 0.06,
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          child: Text(
-                            'Password',
-                            style: TextStyle(
-                              color: Color(0x7FDEDEDE),
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 20,
-                        height: 20,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(),
-                        child: Stack(children: [
-                        
-                        ]),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 31,
-                top: 431,
-                child: Container(
-                  width: 314,
-                  height: 40,
-                  padding: const EdgeInsets.only(
-                    top: 12,
-                    left: 10,
-                    right: 24,
-                    bottom: 12,
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF29252E),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 15,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(),
-                        child: Stack(children: [
-                        
-                        ]),
+                    Positioned(
+                      top: screenSize.height * 0.75,
+                      left: screenSize.width * 0.10,
+                      child: CustomInput(
+                        placeholder: 'Password',
+                        icon: Icons.lock_outline_rounded,
+                        controller: TextEditingController(),
+                        width: screenSize.width * 0.84,
+                        height: screenSize.height * 0.06,
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          child: Text(
-                            'E-mail address',
-                            style: TextStyle(
-                              color: Color(0x7FDEDEDE),
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
-                            ),
-                          ),
-                        ),
+                    ),
+                    Positioned(
+                      top: screenSize.height * 0.85,
+                      left: screenSize.width * 0.10,
+                      child: CustomButton(
+                        width: screenSize.width * 0.84,
+                        height: screenSize.height * 0.06,
+                        buttonText: 'Sign In',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DiscoverPage()),
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 13,
-                top: 18,
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(),
-                  child: Stack(children: [
-                  
-                  ]),
-                ),
-              ),
-              Positioned(
-                left: 321,
-                top: 22,
-                child: Container(
-                  width: 31,
-                  height: 27,
-                  child: Stack(children: [
-                  
-                  ]),
-                ),
-              ),
-              Positioned(
-                left: 43,
-                top: 395,
-                child: Text(
-                  'Please sign in to continue',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 111,
-                top: 625,
-                child: Container(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Opacity(
-                        opacity: 0.50,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFF040207),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(width: 1, color: Color(0xFFDEDEDE)),
-                                      borderRadius: BorderRadius.circular(2),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Remember my account',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.30000001192092896),
-                          fontSize: 12,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    // Positioned(
+                    //   top: screenSize.height * 0.90,
+                    //   child: CheckboxListTile(
+                    //     onChanged: (value) {},
+                    //     value: null,
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
             ],
           ),
-        ),
-      ],
+          // Positioned(
+          //   top: 31,
+          //   left: 18,
+          //   right: 18,
+          //   child: MyTopBar(
+          //     isSignIn: true,
+          //   ),
+          // ),
+        ],
+      ),
     );
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: SignInPage(),
+  ));
 }

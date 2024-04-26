@@ -1,5 +1,7 @@
+// import 'package:artfolio_app/screens/getStarted.dart';
 import 'package:flutter/material.dart';
 import 'package:artfolio_app/screens/splashScreen.dart';
+// import 'package:artfolio_app/auth/signin.dart';
 
 void main() => runApp(ArtfolioApp());
 
@@ -10,9 +12,9 @@ class ArtfolioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Artfolio',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        scaffoldBackgroundColor: Color.fromARGB(255, 18, 32, 47),
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
