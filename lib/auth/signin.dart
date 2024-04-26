@@ -117,14 +117,14 @@ class SignInPage extends StatelessWidget {
               ),
             ],
           ),
-          // Positioned(
-          //   top: 31,
-          //   left: 18,
-          //   right: 18,
-          //   child: MyTopBar(
-          //     isSignIn: true,
-          //   ),
-          // ),
+          Positioned(
+            top: 31,
+            left: 18,
+            right: 18,
+            child: MyTopBar(
+              isSignIn: true,
+            ),
+          ),
         ],
       ),
     );
