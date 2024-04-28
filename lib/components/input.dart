@@ -1,8 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomInput extends StatelessWidget {
   final String placeholder;
   final IconData icon;
+  final Color iconColor;
   final TextEditingController controller;
   final double width;
   final double height;
@@ -10,6 +13,7 @@ class CustomInput extends StatelessWidget {
   CustomInput({
     required this.placeholder,
     required this.icon,
+    required this.iconColor,
     required this.controller,
     required this.width,
     required this.height,
@@ -45,7 +49,7 @@ class CustomInput extends StatelessWidget {
                 decoration: const BoxDecoration(),
                 child: Icon(
                   icon,
-                  color: const Color(0xFFFF5307),
+                  color: iconColor,
                   size: 20,
                 ),
               ),
