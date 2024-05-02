@@ -18,7 +18,7 @@ class BottomNavBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       buttonBackgroundColor: const Color(0xFFFF5307),
       color: const Color(0xFF111114),
-      animationDuration: const Duration(milliseconds: 400),
+      animationDuration: const Duration(milliseconds: 600),
       height: 65,
       items: [
         SvgPicture.asset('assets/svg/home-angle.svg', height: 30, color: Colors.white),

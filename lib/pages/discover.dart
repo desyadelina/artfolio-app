@@ -9,6 +9,7 @@ class DiscoverPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         leading: const CircleAvatar(
+          backgroundColor: Colors.transparent,
           backgroundImage: AssetImage('assets/images/profile.png'),
         ),
         actions: [

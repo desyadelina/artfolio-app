@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, library_private_types_in_public_api
 
 import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/components/input.dart';
@@ -6,8 +6,17 @@ import 'package:artfolio_app/components/appbar.dart';
 import 'package:artfolio_app/components/index.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  _SignInPage createState() => _SignInPage();
+}
+
+class _SignInPage extends State<SignInPage> {
+  final _formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
+  final password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,98 +43,108 @@ class SignInPage extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    width: screenSize.width,
-                    height: screenSize.height,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(color: Color(0xFF040207)),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          left: 0,
-                          top: 66,
-                          child: Container(
-                            width: screenSize.width,
-                            height: screenSize.height * 0.51,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/bg-signin.png"),
-                                fit: BoxFit.fitWidth,
+                      width: screenSize.width,
+                      height: screenSize.height,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(color: Color(0xFF040207)),
+                      key: _formKey,
+                      child: Form(
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              left: 0,
+                              top: 66,
+                              child: Container(
+                                width: screenSize.width,
+                                height: screenSize.height * 0.51,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/bg-signin.png"),
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          left: screenSize.width * 0.10,
-                          top: screenSize.height * 0.57,
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                              height: 0,
+                            Positioned(
+                              left: screenSize.width * 0.10,
+                              top: screenSize.height * 0.57,
+                              child: const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Positioned(
-                          left: screenSize.width * 0.10,
-                          top: screenSize.height * 0.62,
-                          child: const Text(
-                            'Please sign in to continue',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                              height: 0,
+                            Positioned(
+                              left: screenSize.width * 0.10,
+                              top: screenSize.height * 0.62,
+                              child: const Text(
+                                'Please sign in to continue',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                ),
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              top: screenSize.height * 0.66,
+                              left: screenSize.width * 0.10,
+                              child: CustomInput(
+                                placeholder: 'E-mail address',
+                                icon: Icons.mail_outline_rounded,
+                                iconColor: const Color(0xFFFF5307),
+                                controller: email,
+                                width: screenSize.width * 0.84,
+                                height: screenSize.height * 0.06,
+                              ),
+                            ),
+                            Positioned(
+                              top: screenSize.height * 0.75,
+                              left: screenSize.width * 0.10,
+                              child: CustomInput(
+                                placeholder: 'Password',
+                                icon: Icons.lock_outline_rounded,
+                                iconColor: const Color(0xFFFF5307),
+                                controller: password,
+                                width: screenSize.width * 0.84,
+                                height: screenSize.height * 0.06,
+                              ),
+                            ),
+                            Positioned(
+                              top: screenSize.height * 0.85,
+                              left: screenSize.width * 0.10,
+                              child: CustomButton(
+                                width: screenSize.width * 0.84,
+                                height: screenSize.height * 0.06,
+                                buttonText: 'Sign In',
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Index()),
+                                  );
+                                  // if (_formKey.currentState!.validate()) {
+                                  //   Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //       builder: (context) => Index(),
+                                  //     ),
+                                  //   );
+                                  // }
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                        Positioned(
-                          top: screenSize.height * 0.66,
-                          left: screenSize.width * 0.10,
-                          child: CustomInput(
-                            placeholder: 'E-mail address',
-                            icon: Icons.mail_outline_rounded,
-                            iconColor: const Color(0xFFFF5307),
-                            controller: TextEditingController(),
-                            width: screenSize.width * 0.84,
-                            height: screenSize.height * 0.06,
-                          ),
-                        ),
-                        Positioned(
-                          top: screenSize.height * 0.75,
-                          left: screenSize.width * 0.10,
-                          child: CustomInput(
-                            placeholder: 'Password',
-                            icon: Icons.lock_outline_rounded,
-                            iconColor: const Color(0xFFFF5307),
-                            controller: TextEditingController(),
-                            width: screenSize.width * 0.84,
-                            height: screenSize.height * 0.06,
-                          ),
-                        ),
-                        Positioned(
-                          top: screenSize.height * 0.85,
-                          left: screenSize.width * 0.10,
-                          child: CustomButton(
-                            width: screenSize.width * 0.84,
-                            height: screenSize.height * 0.06,
-                            buttonText: 'Sign In',
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Index()),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      )),
                 ],
               ),
             ],

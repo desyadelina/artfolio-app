@@ -70,6 +70,12 @@ class CustomInput extends StatelessWidget {
                         ),
                         border: InputBorder.none,
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field must be filled';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
