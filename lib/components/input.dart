@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CustomInput extends StatelessWidget {
   final String placeholder;
   final IconData icon;
+  final Color iconColor;
   final TextEditingController controller;
   final double width;
   final double height;
@@ -10,6 +11,7 @@ class CustomInput extends StatelessWidget {
   CustomInput({
     required this.placeholder,
     required this.icon,
+    required this.iconColor,
     required this.controller,
     required this.width,
     required this.height,
@@ -45,7 +47,7 @@ class CustomInput extends StatelessWidget {
                 decoration: const BoxDecoration(),
                 child: Icon(
                   icon,
-                  color: const Color(0xFFFF5307),
+                  color: iconColor,
                   size: 20,
                 ),
               ),
@@ -66,6 +68,12 @@ class CustomInput extends StatelessWidget {
                         ),
                         border: InputBorder.none,
                       ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'This field must be filled';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
