@@ -14,7 +14,7 @@ class ExplorePage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          const SizedBox(width: 50),
+          const SizedBox(width: 60),
           Expanded(
             child: CustomInput(
               placeholder: 'Search keyword',
@@ -22,7 +22,7 @@ class ExplorePage extends StatelessWidget {
               iconColor:  Colors.grey,
               controller: TextEditingController(),
               height: 50,
-              width: 300,
+              width: 340,
             ),
             
           ),
