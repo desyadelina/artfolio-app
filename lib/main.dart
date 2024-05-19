@@ -12,6 +12,7 @@ class ArtfolioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Artfolio',
       theme: ThemeData(
+        colorSchemeSeed: const Color(0xFFFF5307),
         scaffoldBackgroundColor: const Color(0xFF040207),
       ),
       home: const SplashScreen(),

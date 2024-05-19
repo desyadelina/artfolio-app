@@ -7,6 +7,7 @@ class CustomButton extends StatefulWidget {
   final Function onPressed;
   final double width;
   final double height;
+  final bool isCircular;
 
   const CustomButton({
     Key? key,
@@ -14,6 +15,7 @@ class CustomButton extends StatefulWidget {
     required this.onPressed,
     required this.width,
     required this.height,
+    this.isCircular = false,
   }) : super(key: key);
 
   @override
@@ -45,11 +47,15 @@ class _CustomButtonState extends State<CustomButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        width: widget.width,
+        width: widget.isCircular
+            ? widget.height
+            : widget.width, // Sesuaikan lebar jika lingkaran
         height: widget.height,
         decoration: BoxDecoration(
           color: _isPressed ? Colors.transparent : const Color(0xFFFF5307),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: widget.isCircular
+              ? BorderRadius.circular(widget.height / 2) // Radius lingkaran
+              : BorderRadius.circular(10), // Radius untuk persegi panjang
           border: Border.all(
             color: const Color(0xFFFF5307),
             width: 1.0,

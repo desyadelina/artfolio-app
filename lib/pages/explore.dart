@@ -9,8 +9,12 @@ class ExplorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Color(0xDEDEDEDE),
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -19,12 +23,11 @@ class ExplorePage extends StatelessWidget {
             child: CustomInput(
               placeholder: 'Search keyword',
               icon: Icons.search_rounded,
-              iconColor:  Colors.grey,
+              iconColor: Colors.grey,
               controller: TextEditingController(),
               height: 50,
               width: 340,
             ),
-            
           ),
         ],
       ),
