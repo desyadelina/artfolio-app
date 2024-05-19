@@ -1,12 +1,8 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:artfolio_app/components/appbar.dart';
-<<<<<<< HEAD
-import 'package:artfolio_app/pages/formUploadPage.dart';
-=======
 import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/pages/form_upload_page.dart';
->>>>>>> desy-codespace
 import 'package:flutter/material.dart';
 
 class UploadPage extends StatefulWidget {
@@ -23,17 +19,12 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-<<<<<<< HEAD
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-=======
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
             color: Color(0xDEDEDEDE),
           ),
->>>>>>> desy-codespace
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -76,29 +67,17 @@ class _UploadPageState extends State<UploadPage> {
               ],
             ),
           ),
-<<<<<<< HEAD
-          ElevatedButton(
-=======
           CustomButton(
             buttonText: 'Next',
->>>>>>> desy-codespace
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const FormUploadPage()),
               );
             },
-<<<<<<< HEAD
-            child: const Text('Next'),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              backgroundColor: const Color(0xFFFF5307),
-            ),
-=======
             width: 50,
             height: 50,
             isCircular: true,
->>>>>>> desy-codespace
           ),
         ],
       ),
@@ -115,7 +94,3 @@ class _UploadPageState extends State<UploadPage> {
     );
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> desy-codespace
