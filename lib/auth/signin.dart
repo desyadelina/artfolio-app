@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, library_private_types_in_public_api, use_build_context_synchronously
+import 'dart:developer';
 
 import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/components/input.dart';
@@ -14,9 +15,16 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPage extends State<SignInPage> {
-  final _formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final password = TextEditingController();
+
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +58,6 @@ class _SignInPage extends State<SignInPage> {
                     height: screenSize.height,
                     clipBehavior: Clip.antiAlias,
                     decoration: const BoxDecoration(color: Color(0xFF040207)),
-                    key: _formKey,
                     child: Form(
                       child: Stack(
                         children: [
@@ -104,7 +111,7 @@ class _SignInPage extends State<SignInPage> {
                               placeholder: 'E-mail address',
                               icon: Icons.mail_outline_rounded,
                               iconColor: const Color(0xFFFF5307),
-                              controller: email,
+                              controller: _email,
                               width: screenSize.width * 0.84,
                               height: screenSize.height * 0.06,
                             ),
@@ -116,7 +123,7 @@ class _SignInPage extends State<SignInPage> {
                               placeholder: 'Password',
                               icon: Icons.lock_outline_rounded,
                               iconColor: const Color(0xFFFF5307),
-                              controller: password,
+                              controller: _password,
                               width: screenSize.width * 0.84,
                               height: screenSize.height * 0.06,
                             ),

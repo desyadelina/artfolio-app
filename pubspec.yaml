@@ -43,6 +43,7 @@ dependencies:
   flutter_svg: 1.1.6
   image_picker: ^1.0.8
   gallery_picker: ^0.4.8
+  firebase_auth: ^4.19.5
 
 dev_dependencies:
   flutter_test:
