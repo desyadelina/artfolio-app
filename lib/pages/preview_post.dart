@@ -1,10 +1,12 @@
+// ignore_for_file: prefer_const_constructors, file_names
+
 import 'package:artfolio_app/components/appbar.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class PreviewPost extends StatelessWidget {
+  const PreviewPost({super.key});
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
@@ -18,23 +20,12 @@ class ProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.more_vert,
-              color: Color(0xDEDEDEDE),
-            ),
-            onPressed: () {},
+            icon: Icon(Icons.more_vert),
+            onPressed: () {
+              
+            },
           ),
         ],
-      ),
-      body: const Center(
-        child: Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 100,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
       ),
     );
   }

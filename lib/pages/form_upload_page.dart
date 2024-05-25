@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:artfolio_app/components/appbar.dart';
+import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,15 @@ class _FormUploadPageState extends State<FormUploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Color(0xDEDEDEDE),
+          ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: 'Create Portfolio',
+        title: "Create Portfolio",
       ),
       body: Form(
         key: _formKey,
@@ -142,21 +147,11 @@ class _FormUploadPageState extends State<FormUploadPage> {
                 alignment: Alignment.centerRight,
                 child: SizedBox(
                   width: 85,
-                  height: 30,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF5307),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      "Create",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
+                  height: 35,
+                  child: CustomButton(
+                    width: 85,
+                    height: 30,
+                    buttonText: "Create",
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
@@ -165,6 +160,7 @@ class _FormUploadPageState extends State<FormUploadPage> {
                         ),
                       );
                     },
+                    
                   ),
                 ),
               ),
