@@ -8,6 +8,7 @@ class CustomButton extends StatefulWidget {
   final double width;
   final double height;
   final bool isCircular;
+  
 
   const CustomButton({
     Key? key,
@@ -49,13 +50,13 @@ class _CustomButtonState extends State<CustomButton> {
         curve: Curves.easeInOut,
         width: widget.isCircular
             ? widget.height
-            : widget.width, // Sesuaikan lebar jika lingkaran
+            : widget.width,
         height: widget.height,
         decoration: BoxDecoration(
           color: _isPressed ? Colors.transparent : const Color(0xFFFF5307),
           borderRadius: widget.isCircular
-              ? BorderRadius.circular(widget.height / 2) // Radius lingkaran
-              : BorderRadius.circular(10), // Radius untuk persegi panjang
+              ? BorderRadius.circular(widget.height / 2)
+              : BorderRadius.circular(10), 
           border: Border.all(
             color: const Color(0xFFFF5307),
             width: 1.0,

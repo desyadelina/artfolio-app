@@ -7,10 +7,10 @@ class BottomNavBar extends StatelessWidget {
   final Function(int) onTap;
 
   const BottomNavBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class BottomNavBar extends StatelessWidget {
         SvgPicture.asset('assets/svg/add.svg', height: 30, color: Colors.white),
         SvgPicture.asset('assets/svg/user-rounded.svg', height: 30, color: Colors.white),
       ],
-      onTap: onTap, 
+      onTap: onTap,
     );
   }
 }
