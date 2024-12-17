@@ -23,12 +23,11 @@ class ExplorePage extends StatelessWidget {
             child: CustomInput(
               placeholder: 'Search keyword',
               icon: Icons.search_rounded,
-              iconColor:  Colors.grey,
+              iconColor: Colors.grey,
               controller: TextEditingController(),
               height: 50,
               width: 340,
             ),
-
           ),
         ],
       ),

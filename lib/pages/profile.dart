@@ -1,4 +1,3 @@
-
 import 'package:artfolio_app/components/appbar.dart';
 import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/pages/detail_page.dart';
@@ -101,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-Future<void> _logout() async {
+  Future<void> _logout() async {
     final authService = AuthService();
     await authService.signOut();
     Navigator.of(context).pushReplacementNamed('/login');
@@ -129,7 +128,7 @@ Future<void> _logout() async {
       ),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
@@ -167,7 +166,8 @@ Future<void> _logout() async {
                         _showLogoutConfirmationDialog(context);
                       }
                     },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    itemBuilder: (BuildContext context) =>
+                        <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
                         value: 'logout',
                         child: Text('Logout'),
@@ -179,11 +179,14 @@ Future<void> _logout() async {
               body: FutureBuilder<List<Map<String, dynamic>>>(
                 future: _portfolioDataFuture,
                 builder: (context, portfolioSnapshot) {
-                  if (portfolioSnapshot.connectionState == ConnectionState.waiting) {
+                  if (portfolioSnapshot.connectionState ==
+                      ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (portfolioSnapshot.hasError) {
-                    return Center(child: Text('Error: ${portfolioSnapshot.error}'));
-                  } else if (!portfolioSnapshot.hasData || portfolioSnapshot.data!.isEmpty) {
+                    return Center(
+                        child: Text('Error: ${portfolioSnapshot.error}'));
+                  } else if (!portfolioSnapshot.hasData ||
+                      portfolioSnapshot.data!.isEmpty) {
                     return const Center(child: Text('No data found'));
                   }
 
@@ -203,7 +206,9 @@ Future<void> _logout() async {
                       children: [
                         Column(
                           children: [
-                            const SizedBox(height: 60), // Moved avatar to Positioned widget
+                            const SizedBox(
+                                height:
+                                    60), // Moved avatar to Positioned widget
                             Text(
                               profileData?['displayName'] ?? 'Display Name',
                               style: const TextStyle(
@@ -222,7 +227,8 @@ Future<void> _logout() async {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              profileData?['description'] ?? 'This is a description.',
+                              profileData?['description'] ??
+                                  'This is a description.',
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: Colors.white,
@@ -240,18 +246,22 @@ Future<void> _logout() async {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20), 
+                        const SizedBox(height: 20),
                         Expanded(
                           child: MasonryGridView.builder(
-                            gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                             ),
                             itemCount: portfolioData.length,
                             itemBuilder: (context, index) {
                               var portfolioItem = portfolioData[index];
                               var title = portfolioItem['title'] ?? 'No Title';
-                              var images = portfolioItem['images'] as List<dynamic>? ?? [];
-                              var isOwner = portfolioItem['user_id'] == currentUser?.uid;
+                              var images =
+                                  portfolioItem['images'] as List<dynamic>? ??
+                                      [];
+                              var isOwner =
+                                  portfolioItem['user_id'] == currentUser?.uid;
 
                               return GestureDetector(
                                 onTap: () {
@@ -260,9 +270,13 @@ Future<void> _logout() async {
                                     MaterialPageRoute(
                                       builder: (context) => DetailPage(
                                         title: portfolioItem['title'],
-                                        username: profileData?['username'] ?? 'username',
-                                        profileImageUrl: profileData?['profileImageUrl'] ?? 'https://via.placeholder.com/100',
-                                        description: portfolioItem['description'],
+                                        username: profileData?['username'] ??
+                                            'username',
+                                        profileImageUrl: profileData?[
+                                                'profileImageUrl'] ??
+                                            'https://via.placeholder.com/100',
+                                        description:
+                                            portfolioItem['description'],
                                         imageUrls: images.cast<String>(),
                                         link: portfolioItem['link'],
                                         portfolioId: portfolioItem['id'],
@@ -273,11 +287,13 @@ Future<void> _logout() async {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       if (images.isNotEmpty)
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                           child: Image.network(
                                             images.first,
                                             fit: BoxFit.cover,
@@ -285,11 +301,13 @@ Future<void> _logout() async {
                                           ),
                                         ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(0.0),
+                                              padding:
+                                                  const EdgeInsets.all(0.0),
                                               child: Text(
                                                 title,
                                                 style: const TextStyle(
@@ -311,25 +329,33 @@ Future<void> _logout() async {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) => EditPortfolioPage(
-                                                        portfolioId: portfolioItem['id'],
-                                                        portfolioData: portfolioItem,
+                                                      builder: (context) =>
+                                                          EditPortfolioPage(
+                                                        portfolioId:
+                                                            portfolioItem['id'],
+                                                        portfolioData:
+                                                            portfolioItem,
                                                       ),
                                                     ),
                                                   ).then((result) {
                                                     if (result == 'updated') {
                                                       setState(() {
-                                                        _portfolioDataFuture = _fetchPortfolioData();
+                                                        _portfolioDataFuture =
+                                                            _fetchPortfolioData();
                                                       });
                                                     }
                                                   });
                                                   break;
                                                 case 'delete':
-                                                  _showDeleteConfirmationDialog(context, portfolioItem['id']);
+                                                  _showDeleteConfirmationDialog(
+                                                      context,
+                                                      portfolioItem['id']);
                                                   break;
                                               }
                                             },
-                                            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                            itemBuilder:
+                                                (BuildContext context) =>
+                                                    <PopupMenuEntry<String>>[
                                               if (isOwner)
                                                 const PopupMenuItem<String>(
                                                   value: 'edit',

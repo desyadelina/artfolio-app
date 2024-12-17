@@ -46,18 +46,6 @@
 // //   }
 // // }
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import 'package:flutter/material.dart';
 // import 'package:artfolio_app/components/navbar.dart';
 // import 'package:artfolio_app/pages/discover.dart';
