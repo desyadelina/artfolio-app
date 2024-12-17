@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, library_private_types_in_public_api
-
+// ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, library_private_types_in_public_api, use_build_context_synchronously
 import 'package:artfolio_app/components/button.dart';
 import 'package:artfolio_app/components/input.dart';
 import 'package:artfolio_app/components/appbar.dart';
 import 'package:artfolio_app/components/index.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:artfolio_app/services/auth_service.dart'; 
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -14,9 +15,16 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPage extends State<SignInPage> {
-  final _formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final AuthService _authService = AuthService();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +58,6 @@ class _SignInPage extends State<SignInPage> {
                     height: screenSize.height,
                     clipBehavior: Clip.antiAlias,
                     decoration: const BoxDecoration(color: Color(0xFF040207)),
-                    key: _formKey,
                     child: Form(
                       child: Stack(
                         children: [
@@ -104,7 +111,7 @@ class _SignInPage extends State<SignInPage> {
                               placeholder: 'E-mail address',
                               icon: Icons.mail_outline_rounded,
                               iconColor: const Color(0xFFFF5307),
-                              controller: email,
+                              controller: _email,
                               width: screenSize.width * 0.84,
                               height: screenSize.height * 0.06,
                             ),
@@ -116,7 +123,7 @@ class _SignInPage extends State<SignInPage> {
                               placeholder: 'Password',
                               icon: Icons.lock_outline_rounded,
                               iconColor: const Color(0xFFFF5307),
-                              controller: password,
+                              controller: _password,
                               width: screenSize.width * 0.84,
                               height: screenSize.height * 0.06,
                             ),
@@ -128,20 +135,24 @@ class _SignInPage extends State<SignInPage> {
                               width: screenSize.width * 0.84,
                               height: screenSize.height * 0.06,
                               buttonText: 'Sign In',
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Index()),
+                              onPressed: () async {
+                                User? user = await _authService.signInWithEmailAndPassword(
+                                  _email.text,
+                                  _password.text,
                                 );
-                                // if (_formKey.currentState!.validate()) {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => Index(),
-                                //     ),
-                                //   );
-                                // }
+                                if (user != null) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Index(),
+                                    ),
+                                  );
+                                } else {
+                                  // Show error message
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Failed to sign in. Please check your email and password.')),
+                                  );
+                                }
                               },
                             ),
                           ),
@@ -157,10 +168,4 @@ class _SignInPage extends State<SignInPage> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: SignInPage(),
-  ));
 }

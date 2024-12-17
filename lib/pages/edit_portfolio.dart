@@ -1,45 +1,71 @@
 import 'dart:typed_data';
-import 'package:artfolio_app/components/index.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:artfolio_app/services/portfolio_service.dart';
 import 'package:artfolio_app/components/appbar.dart';
 import 'package:artfolio_app/components/button.dart';
 
-class FormUploadPage extends StatefulWidget {
-  final List<AssetEntity> selectedImages;
+class EditPortfolioPage extends StatefulWidget {
+  final String portfolioId;
+  final Map<String, dynamic> portfolioData;
 
-  const FormUploadPage({super.key, required this.selectedImages});
+  const EditPortfolioPage({
+    Key? key,
+    required this.portfolioId,
+    required this.portfolioData,
+  }) : super(key: key);
 
   @override
-  State<FormUploadPage> createState() => _FormUploadPageState();
+  _EditPortfolioPageState createState() => _EditPortfolioPageState();
 }
 
-class _FormUploadPageState extends State<FormUploadPage> {
-  final _dbService = DatabaseService();
-
-  final _title = TextEditingController();
-  final _description = TextEditingController();
-  final _link = TextEditingController();
+class _EditPortfolioPageState extends State<EditPortfolioPage> {
   final _formKey = GlobalKey<FormState>();
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _linkController;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController =
+        TextEditingController(text: widget.portfolioData['title']);
+    _descriptionController =
+        TextEditingController(text: widget.portfolioData['description']);
+    _linkController = TextEditingController(text: widget.portfolioData['link']);
+  }
 
   @override
   void dispose() {
-    _title.dispose();
-    _description.dispose();
-    _link.dispose();
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _linkController.dispose();
     super.dispose();
   }
 
-  Future<List<Uint8List>> _getImagesData() async {
-    List<Uint8List> imagesData = [];
-    for (AssetEntity image in widget.selectedImages) {
-      final data = await image.originBytes;
-      if (data != null) {
-        imagesData.add(data);
+  Future<void> _updatePortfolio() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseFirestore.instance
+            .collection('portfolio')
+            .doc(widget.portfolioId)
+            .update({
+          'title': _titleController.text,
+          'description': _descriptionController.text,
+          'link': _linkController.text,
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Portfolio updated successfully!')),
+        );
+        Navigator.pop(
+            context, 'updated'); // Mengirim hasil kembali ke ProfilePage
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update portfolio: $e')),
+        );
       }
     }
-    return imagesData;
   }
 
   @override
@@ -54,7 +80,7 @@ class _FormUploadPageState extends State<FormUploadPage> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title: "Create Portfolio",
+        title: "Edit Portfolio",
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -64,51 +90,8 @@ class _FormUploadPageState extends State<FormUploadPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.selectedImages.isNotEmpty)
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width /
-                        (widget.selectedImages.first.width /
-                            widget.selectedImages.first.height),
-                    child: PageView.builder(
-                      itemCount: widget.selectedImages.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FutureBuilder<Uint8List?>(
-                          future: widget.selectedImages[index]
-                              .thumbnailDataWithSize(
-                            const ThumbnailSize(200, 200),
-                          ),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                    ConnectionState.done &&
-                                snapshot.data != null) {
-                              final asset = widget.selectedImages[index];
-                              final width = asset.width;
-                              final height = asset.height;
-
-                              return AspectRatio(
-                                aspectRatio: width / height,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.memory(
-                                    snapshot.data!,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
                 const Padding(
-                  padding: EdgeInsets.only(bottom: 5, top: 20),
+                  padding: EdgeInsets.only(bottom: 5),
                   child: Text(
                     "Title",
                     style: TextStyle(
@@ -119,7 +102,7 @@ class _FormUploadPageState extends State<FormUploadPage> {
                   ),
                 ),
                 TextFormField(
-                  controller: _title,
+                  controller: _titleController,
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     hintText: "Tell everyone what your art is about",
@@ -153,7 +136,7 @@ class _FormUploadPageState extends State<FormUploadPage> {
                   ),
                 ),
                 TextFormField(
-                  controller: _description,
+                  controller: _descriptionController,
                   style: const TextStyle(color: Colors.white),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -183,7 +166,7 @@ class _FormUploadPageState extends State<FormUploadPage> {
                   ),
                 ),
                 TextFormField(
-                  controller: _link,
+                  controller: _linkController,
                   style: const TextStyle(color: Colors.white),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
@@ -217,43 +200,9 @@ class _FormUploadPageState extends State<FormUploadPage> {
                     height: 35,
                     child: CustomButton(
                       width: 85,
-                      height: 30,
-                      buttonText: "Create",
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          final portfolio = Portfolio(
-                            title: _title.text,
-                            description: _description.text,
-                            link: _link.text,
-                          );
-                          List<Uint8List> imagesData = await _getImagesData();
-                          try {
-                            await _dbService.create(portfolio, imagesData);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text('Portfolio created successfully!'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const Index(initialIndex: 3),
-                              ),
-                              (Route<dynamic> route) => false,
-                            );
-                          } catch (error) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Failed to create portfolio.'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        }
-                      },
+                      height: 35,
+                      buttonText: "Update",
+                      onPressed: _updatePortfolio,
                     ),
                   ),
                 ),

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="default_web_client_id" translatable="false">1:334507341406:web:7ddcf6bd4551341f4ca6cf</string>
+    <string name="firebase_database_url" translatable="false">https://artfolio-app.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">334507341406</string>
+    <string name="google_api_key" translatable="false">AIzaSyD1c4AczhjST4np48ZMa5umpNyEuEZv3dw</string>
+    <string name="google_app_id" translatable="false">1:334507341406:android:cf78bfb252ddb6514ca6cf</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDsiWXBfI_gl8TXoiT-rVYg5RzD1UkFHF0</string>
+    <string name="project_id" translatable="false">artfolio-app</string>
+    <string name="storage_bucket" translatable="false">artfolio-app.appspot.com</string>
+
     <!-- Theme applied to the Android Window while the process is starting when the OS's Dark Mode setting is off -->
     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <!-- Show a splash screen on the activity. Automatically removed when
